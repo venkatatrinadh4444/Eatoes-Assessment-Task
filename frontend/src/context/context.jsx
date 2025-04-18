@@ -8,7 +8,7 @@ export const ContextProvider=({children})=> {
     const [user,setUser]=useState({})
 
     useEffect(()=> {
-        axios.get(`${API_URI}/vendor/vendor-details`,{withCredentials:true}).then(res=>setUser(res.data.vendor)).catch(err=>console.log('User has not logged yet!'))
+        axios.get(`${API_URI}/vendor/vendor-details`,{withCredentials:true}).then(res=>setUser(res.data.user)).catch(err=>setUser({}))
     },[])
     
     return <StoreContext.Provider value={{user,setUser}}>

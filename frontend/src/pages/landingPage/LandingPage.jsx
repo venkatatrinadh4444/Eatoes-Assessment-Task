@@ -44,7 +44,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     axios
-      .get(`${API_URI}/firm/get-firms/${clikedCategory}`)
+      .get(`https://multi-vendor-swiggy-clone.onrender.com/firm/get-firms/${clikedCategory}`)
       .then((res) =>{
         setData(res.data.filteredFirms)
       })

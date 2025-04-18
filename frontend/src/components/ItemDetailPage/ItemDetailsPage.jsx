@@ -14,7 +14,7 @@ const ItemDetailsPage = () => {
   const navigateHome=useNavigate(null)
 
   useEffect(() => {
-    axios.get(`${API_URI}/product/${id}/get-products`).then(res=>{
+    axios.get(`https://multi-vendor-swiggy-clone.onrender.com/product/${id}/get-products`).then(res=>{
       setProductsData(res.data.products)
       setFirmName(res.data.firmName)
   }).catch(err=>toast.error(err.response.data.msg))
