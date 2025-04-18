@@ -1,0 +1,15 @@
+.container img {
+    border-radius: 8px;
+}
+.cartContainer {
+    border: 1px solid silver;
+    border-radius: 8px;
+    padding: 8px;
+    transition: 0.3s ease-in-out;
+}
+.cartContainer:hover {
+    transform: scale(1.1);
+}
+.sectionContainer {
+    min-height: 75vh;
+}

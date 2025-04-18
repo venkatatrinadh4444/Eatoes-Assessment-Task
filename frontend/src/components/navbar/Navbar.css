@@ -1,0 +1,27 @@
+.navLinks {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: black;
+    transition: 0.3s;
+}
+.navLinks:hover {
+    color: #00000056;
+}
+.googleBtn button{
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.4s ease-in-out;
+    background-image: linear-gradient(to right,rgba(0, 0, 0, 0.88),#000000b2);
+    background-size: 0%;
+    background-repeat: no-repeat;
+}
+.googleBtn button:hover {
+    background-size: 100%;
+    color: white;
+    transform: scale(1.1);
+}
+.cart {
+    color: black;
+}

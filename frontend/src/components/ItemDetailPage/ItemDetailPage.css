@@ -1,0 +1,38 @@
+.itemDetailContainer {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    border-top: 2px solid silver;
+    padding-top: 16px;
+    padding-bottom: 18px;
+    border-radius: 2px;
+    align-items: center;
+}
+.addItemBox {
+    position: relative;
+}
+.addItemBox img {
+    border-radius: 8px;
+    height: 90px;
+}
+.addBtn {
+    position: absolute;
+    bottom: -8px;
+    left:16px;
+    padding: 0px 18px;
+    font-size: 18px;
+    font-weight: 500;
+    color: green;
+    border: 1px solid silver;
+}
+.itemContent * {
+    margin: 0px;
+}
+.itemContent h5 {
+    margin-bottom: 3px;
+}
+.itemContent p {
+    font-weight: 400;
+    font-size: 18px;
+}
+
