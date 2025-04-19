@@ -3,6 +3,19 @@
 start command:
  # npm run dev
 
+-> Pull the repository into the local files and use the following commands to run the projects locally
+#For frontend use :
+#cd frontend
+#npm install 
+#npm run dev
+
+#For backend follow the following steps:
+#cd backend
+#npm install
+
+-> Before staring read all the instructions below for better understanding 
+#npm run dev
+
 2.stored the backend url at components api folder on api file 
 # src/components/Api/Api.jsx
 
