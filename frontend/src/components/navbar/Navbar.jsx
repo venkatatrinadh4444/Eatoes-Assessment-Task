@@ -50,13 +50,13 @@ function OffcanvasExample() {
     axios.post(`${API_URI}/user/login-user`,{email,password},{withCredentials:true}).then(res=>{
       setUser(res.data.UserDetails)
       toast.success(res.data.msg)
+      setData({
+        username:'',
+        email:'',
+        password:''
+      })
       handleClose()
     }).catch(err=>toast.error(err.response.data.msg))
-    setData({
-      username:'',
-      email:'',
-      password:''
-    })
   }
   
   const registerFuntion=()=> {
