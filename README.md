@@ -90,3 +90,7 @@ this key is used to create the jwt token and the token is stored in the httpOnly
 #Frontend API URL
 
 # https://the-digital-diner.netlify.app/
+
+#Backend API URL
+
+# https://eatoes-assessment-task.onrender.com
