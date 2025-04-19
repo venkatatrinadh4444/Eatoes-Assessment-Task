@@ -1,3 +1,5 @@
+Note:While running the frontend project you must need to accept the cookies because I stored the user token as cookies so you have allow cookie to run the project seamlessly. 
+
 1.Fontend application created by using react vite package
 
 start command:
