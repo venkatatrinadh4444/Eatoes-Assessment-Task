@@ -41,11 +41,15 @@ function OffcanvasExample() {
     setData({...data,[e.target.name]:e.target.value})
   }
 
+  const [verifyBtn,setVerifyBtn]=useState(false)
+  const [emailVerified,setEmailVerified]=useState(false)
+  const [otp,setOtp]=useState('')
+
   const loginFuntion=()=> {
     const {email,password}=data
-    axios.post(`${API_URI}/vendor/login-vendor`,{email,password},{withCredentials:true}).then(res=>{
+    axios.post(`${API_URI}/user/login-user`,{email,password},{withCredentials:true}).then(res=>{
+      setUser(res.data.UserDetails)
       toast.success(res.data.msg)
-      setUser(res.data.vendorDetails)
       handleClose()
     }).catch(err=>toast.error(err.response.data.msg))
     setData({
@@ -54,19 +58,21 @@ function OffcanvasExample() {
       password:''
     })
   }
-  const [verifyBtn,setVerifyBtn]=useState(false)
-  const [emailVerified,setEmailVerified]=useState(false)
-  const [otp,setOtp]=useState('')
-
+  
   const registerFuntion=()=> {
     const {username,email,password}=data
-    axios.post(`${API_URI}/vendor/register-vendor`,{username,email,password}).then(res=>{
+    axios.post(`${API_URI}/user/register-user`,{username,email,password}).then(res=>{
       toast.success(res.data.msg)
-    }).catch(err=>toast.error(err.response.data.msg))
+      setData({
+        username:'',
+        email:'',
+        password:''
+      })
+    }).catch(err=>toast.error(err.response.data?.msg))
   }
-  
+
   const logoutFuntion=()=> {
-    axios.delete(`${API_URI}/vendor/logout-vendor`,{withCredentials:true}).then(res=>{
+    axios.delete(`${API_URI}/user/logout-user`,{withCredentials:true}).then(res=>{
       toast.success(res.data.msg)
       setUser({})
       navigateHome('/')
@@ -137,7 +143,6 @@ function OffcanvasExample() {
                     Login
                   </NavLink>
                 )}
-                <a href="https://multi-vendor-swiggy-clone-dashboard-6l81gds0o.vercel.app" className="d-none d-lg-block text-decoration-none rounded text-light px-4 py-1 fs-lg fw-bold bg-dark shadow" target="_blank" >Vendor</a>
               </Nav>
               <Form className="d-flex mt-lg-0 mt-3" onSubmit={(e)=>e.preventDefault()}>
                 <Form.Control

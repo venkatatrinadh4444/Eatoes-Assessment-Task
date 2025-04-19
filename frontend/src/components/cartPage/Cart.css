@@ -13,3 +13,7 @@
 .sectionContainer {
     min-height: 75vh;
 }
+
+.orderItemImages {
+    object-fit: cover;
+}

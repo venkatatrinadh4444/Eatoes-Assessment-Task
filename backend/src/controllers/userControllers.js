@@ -72,10 +72,10 @@ const logoutUser=async(req,res)=> {
 const UserDetails=async(req,res)=> {
     try {
         const {id}=req
-        const User=await User.findById(id)
-        if(!User)
+        const user=await User.findById(id)
+        if(!user)
             return res.status(404).json({msg:'User not found!'})
-        return res.status(200).json({User})
+        return res.status(200).json(user)
     } catch (err) {
         console.log('Error occured at fetching User details',err)
         return res.status(500).json({msg:"Server error"})
@@ -88,9 +88,10 @@ const addingItemsToCart=async(req,res)=> {
         const {itemId,image,name,price}=req.body;
         if(!itemId || !image || !name || !price) 
             return res.status(401).json({msg:"All fields are required"})
-        const User=await User.findById(id)
 
-        if(!User)
+        const user=await User.findById(id)
+
+        if(!user)
             return res.status(404).json({msg:'User not found!'})
 
         const cartItem=await Cart.findOne({itemId})
@@ -101,7 +102,7 @@ const addingItemsToCart=async(req,res)=> {
         }
 
         const newCartItem=new Cart({
-            userId:id,
+            userId:user._id,
             itemId,
             image,
             name,
@@ -123,7 +124,9 @@ const removeItemFromCart=async(req,res)=> {
         const {id}=req
         if(!id)
             return res.status(404).json({msg:"User id not found!"})
-        const {cartItemId}=req.body;
+        const {cartItemId}=req.params;
+        if(!cartItemId)
+            return res.status(404).json({msg:'Item id not found!'})
         const updateCart=await Cart.findByIdAndDelete(cartItemId)
         if(!updateCart)
             return res.status(404).json({msg:'Cart Item not found'})
@@ -140,7 +143,7 @@ const fetchCartItems=async(req,res)=> {
         if(!id)
             return res.status(404).json({msg:'User id not found!'})
         const cartItems=await Cart.find({userId:id})
-        return res.status(200).json(cartItems)
+        return res.status(200).json({msg:'Showing cart items',cartItems})
     } catch (err) {
         console.log('Error occured at fetching cart items',err)
         return res.status(500).json({msg:"Server error"})
@@ -156,18 +159,21 @@ const checkoutFuntion=async(req,res)=> {
         if(!name || !phone || !address)
             return res.status(401).json({msg:"All fields are required"})
         const cartItems=await Cart.find({userId:id})
+
         if(cartItems.length===0)
             return res.status(403).json({msg:"Cart is empty"})
 
         
-        const totalAmount=cartItems.reduce((total,item)=>total+item.price*quantity)
+        const totalAmount=cartItems.reduce((total,item)=>{
+            return total+item.price*item.quantity
+        },0)
 
         const newOrder=new Order({
             userId:id,
             name,
             phone,
             address,
-            items:[
+            items:
                 cartItems.map(eachItem=>{
                     return {
                         itemId:eachItem.itemId,
@@ -176,8 +182,7 @@ const checkoutFuntion=async(req,res)=> {
                         quantity:eachItem.quantity,
                         price:eachItem.price
                     }
-                })
-            ],
+                }),
             total:totalAmount
         })
         await newOrder.save()
@@ -189,4 +194,17 @@ const checkoutFuntion=async(req,res)=> {
     }
 }
 
-module.exports={registerUser,loginUser,logoutUser,UserDetails,addingItemsToCart,removeItemFromCart,fetchCartItems,checkoutFuntion}
+const gettingOrderedItems=async(req,res)=> {
+    try {
+        const {id}=req
+        if(!id)
+            return res.status(404).json({msg:'user id not found!'})
+        const orderedItems=await Order.find({userId:id})
+        return res.status(200).json({msg:'Showing ordered items',orderedItems})
+    } catch (err) {
+        console.log('Error occured at fetching order items',err)
+        return res.status(500).json({msg:"Server error"})
+    }
+}
+
+module.exports={registerUser,loginUser,logoutUser,UserDetails,addingItemsToCart,removeItemFromCart,fetchCartItems,checkoutFuntion,gettingOrderedItems}

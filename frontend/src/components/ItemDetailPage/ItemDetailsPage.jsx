@@ -20,12 +20,21 @@ const ItemDetailsPage = () => {
   }).catch(err=>toast.error(err.response.data.msg))
   }, []);
 
-  const addToCart=(productId)=> {
+  const addToCart=(item)=> {
     if(!user.username) {
       toast.warning('Login is required!')
       navigateHome('/')
     }
-    axios.post(`${API_URI}/product/${productId}/add-to-cart`,{},{withCredentials:true}).then(res=>toast.success(res.data.msg)).catch(err=>toast.error(err.response.data?.msg))
+    const itemData={
+      itemId:item._id,
+      image:item.image,
+      name:item.name,
+      price:item.price
+    }
+    axios.post(`${API_URI}/user/add-to-cart`,itemData,{withCredentials:true}).then(res=>{
+      toast.success(res.data.msg)
+      navigateHome('/cart')
+    }).catch(err=>toast.error(err.response.data?.msg))
   }
   return (
     <div className="container">
@@ -45,7 +54,7 @@ const ItemDetailsPage = () => {
                 alt={eachProduct.name}
                 width="100px"
               />
-              <button className="addBtn btn shadow btn-light" onClick={()=>addToCart(eachProduct._id)}>ADD</button>
+              <button className="addBtn btn shadow btn-light" onClick={()=>addToCart(eachProduct)}>ADD</button>
             </div>
           </div>
         );

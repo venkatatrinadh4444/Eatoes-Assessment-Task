@@ -1,16 +1,17 @@
 const express=require('express')
-const {registerUser,loginUser,logoutUser,UserDetails,addingItemsToCart,removeItemFromCart,fetchCartItems,checkoutFuntion}=require('../controllers/userControllers')
-const verifyVendor=require('../middlewares/verifyUserToken')
+const {registerUser,loginUser,logoutUser,UserDetails,addingItemsToCart,removeItemFromCart,fetchCartItems,checkoutFuntion, gettingOrderedItems}=require('../controllers/userControllers')
+const verifyUser=require('../middlewares/verifyUserToken')
 
 const routes=express.Router()
 
-routes.post('/register-vendor',registerUser)
-routes.post('/login-vendor',loginUser)
-routes.delete('/logout-vendor',logoutUser)
-routes.get('/vendor-details',verifyVendor,UserDetails)
-routes.post('/add-cart-item',verifyVendor,addingItemsToCart)
-routes.get('/fetch-cart-items',verifyVendor,fetchCartItems)
-routes.delete('/delete-cart-item',verifyVendor,removeItemFromCart)
-routes.post('/checkout',verifyVendor,checkoutFuntion)
+routes.post('/register-user',registerUser)
+routes.post('/login-user',loginUser)
+routes.delete('/logout-user',logoutUser)
+routes.get('/user-details',verifyUser,UserDetails)
+routes.post('/add-to-cart',verifyUser,addingItemsToCart)
+routes.get('/fetch-cart-items',verifyUser,fetchCartItems)
+routes.delete('/delete-cart-item/:cartItemId',verifyUser,removeItemFromCart)
+routes.post('/checkout',verifyUser,checkoutFuntion)
+routes.get('/fetch-ordered-items',verifyUser,gettingOrderedItems)
 
 module.exports=routes

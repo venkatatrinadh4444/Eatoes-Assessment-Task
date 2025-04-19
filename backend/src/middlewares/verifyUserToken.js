@@ -6,7 +6,7 @@ const verifyUser=async(req,res,next)=> {
         const {digital_diner_user_token}=req.cookies
         if(!digital_diner_user_token) 
            return res.status(404).json({msg:"Token not found!"})
-        const decoded=jwt.verify(token,process.env.MY_SECRET_KEY)
+        const decoded=jwt.verify(digital_diner_user_token,process.env.MY_SECRET_KEY)
         if(!decoded)
             return res.status('token is invalid or expired')
         const existUser=await User.findById(decoded.id)
