@@ -19,7 +19,7 @@ Api Url for restaurents and items
 mongodb+srv://venkatatrinadh4444:digital-diner@cluster0.pgpzaxu.mongodb.net/digital-diner
 
 this key is used to create the jwt token and the token is stored in the httpOnly cookies as "digital_diner_user_token" name
-# MY_SECRET_KEY=swiggy-clone-venkatatrinadh
+# MY_SECRET_KEY=digital-diner-venkatatrinadh
 
 
 5.The node env variable is use state that whether the project is in development or production and after deploying the project. I will change this as a production after pulling the project into your local folder just change the production to development for storing the cookies while developement after developement just before publishing the project change it to production.
@@ -85,3 +85,8 @@ this key is used to create the jwt token and the token is stored in the httpOnly
 ->To get the user details after logged in and these user details will be stored at the context to access every component.If the context user data is null then it is not possible to perform the operation related the cart and after login to app the token is valid for one hour after it will automatically erases from the cookies until the token exists this url is used to fetch the user details across multiple refreshes.
 
 # ${API_URI}/user/user-details
+
+
+#Frontend API URL
+
+# https://the-digital-diner.netlify.app/
