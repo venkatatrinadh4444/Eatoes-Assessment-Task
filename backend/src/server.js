@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors=require('cors')
-const vendorRoutes = require('./routes/vendorRoutes');
+const userRoutes = require('./routes/userRoutes');
 const verifyRoutes=require('./routes/userVerificationRoutes')
 
 const PORT = process.env.PORT || 5000;
@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({credentials:true,origin:["http://localhost:5173"]}))
 
-app.use('/vendor', vendorRoutes);
+app.use('/user', userRoutes);
 app.use('/verification',verifyRoutes)
 
 

@@ -1,7 +1,7 @@
 const UserVerification=require('../models/UserVerification');
 const otpGenerator=require('otp-generator')
 const sendOtp=require('../middlewares/nodemailer')
-const Vendor=require('../models/Vendor')
+const User=require('../models/User')
 
 
 const sendingOtp=async(req,res)=> {
@@ -9,9 +9,9 @@ const sendingOtp=async(req,res)=> {
         const {email}=req.body;
         if(!email)
             return res.status(404).json({msg:'Email is required!'})
-        const vendor=await Vendor.findOne({email})
-        const user=await UserVerification.findOne({email})
-        if(user?.isVerified && vendor)
+        const user=await User.findOne({email})
+        const userAuth=await UserVerification.findOne({email})
+        if(userAuth?.isVerified && user)
             return res.status(404).json({msg:'Email is already in use'})
         const otp=otpGenerator.generate(6,{upperCaseAlphabets:false,specialChars:false})
         const expiryTime=new Date(Date.now()+5*60000)
