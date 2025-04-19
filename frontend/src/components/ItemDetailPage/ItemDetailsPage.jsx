@@ -36,6 +36,7 @@ const ItemDetailsPage = () => {
       navigateHome('/cart')
     }).catch(err=>toast.error(err.response.data?.msg))
   }
+  
   return (
     <div className="container">
     <h3 className="bg-warning text-center mt-5 py-1 fw-bold">{firmName}</h3>

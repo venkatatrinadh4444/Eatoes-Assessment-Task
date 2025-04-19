@@ -10,7 +10,6 @@ import { useContextData } from "../../context/context";
 const SearchItems = () => {
   const navigateHome = useNavigate(null);
   const [produtsData, setProductsData] = useState([]);
-  const [data, setData] = useState([]);
   const { value } = useParams();
   const { user } = useContextData();
 
@@ -19,7 +18,7 @@ const SearchItems = () => {
       .get(`https://multi-vendor-swiggy-clone.onrender.com/product/search-products?itemName=${value}`)
       .then((res) => setProductsData(res.data.filterdProducts))
       .catch((err) => toast.error(err.response.data?.msg));
-  }, []);
+  }, [value]);
 
   const addToCart = (item) => {
     if (!user.username) {

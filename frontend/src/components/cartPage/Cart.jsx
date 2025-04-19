@@ -13,7 +13,7 @@ import Form from "react-bootstrap/Form";
 const Cart = () => {
   const navigateHome = useNavigate(null);
   const [cartItems, setCartItems] = useState([]);
-  const { user, setUser } = useContextData();
+  const { user} = useContextData();
   const [clickOrder, setClickOrder] = useState(false);
 
   const [orderDetails, setOrderDetails] = useState({
@@ -51,7 +51,7 @@ const Cart = () => {
       .get(`${API_URI}/user/fetch-ordered-items`, { withCredentials: true })
       .then((res) => {
         toast.success(res.data.msg);
-        setOrderDetails(res.data.orderedItems);
+        setOrderDetails(res.data.orderedItems.reverse());
       })
       .catch((err) => toast.error(err.response.data?.msg));
   };
